@@ -8,8 +8,6 @@ from django.urls import reverse_lazy, reverse
 from theblog.models import Post
 from django.http import HttpResponseRedirect
 
-#def home(request):
-#    return render(request, 'home.html', {})
 
 
 def LikeView(request, pk):
@@ -24,11 +22,11 @@ def LikeView(request, pk):
         
     return HttpResponseRedirect(reverse('article-detail', args=[str(pk)]))
 
+
 class HomeView(ListView):
     model = Post
     template_name = 'home.html'
     ordering = ['-post_date']
-    #ordering = ['-id']
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
@@ -36,11 +34,11 @@ class HomeView(ListView):
         context["cat_menu"] = cat_menu
         return context
 
+
 def CategoryListView(request):
     cat_menu_list = Category.objects.all()
     return render(request, 'category_list.html', {'cat_menu_list':cat_menu_list})
         
-
 
 def CategoryView(request, cats):
     category_posts = Post.objects.filter(category=cats.replace('-', ' '))
@@ -72,8 +70,6 @@ class AddPostView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'add_post.html'
-    #fields = '__all__'
-    #fields = ('title','body')
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
@@ -84,10 +80,8 @@ class AddPostView(CreateView):
 
 class AddCategoryView(CreateView):
     model = Category
-    #form_class = PostForm
     template_name = 'add_category.html'
     fields = '__all__'
-    #fields = ('title','body')
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
@@ -100,7 +94,6 @@ class UpdatePostView(UpdateView):
     model = Post
     form_class = EditForm
     template_name = 'update_post.html'
-    #fields = ['title', 'title_tag', 'body']
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
