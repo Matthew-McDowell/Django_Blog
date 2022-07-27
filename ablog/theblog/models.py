@@ -11,15 +11,14 @@ class Category(models.Model):
             return self.name
 
     def get_absolute_url(self):
-        #return reverse('article-detail', args=(str(self.id)))
         return reverse('home')
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
+    header_image = models.ImageField(null=True, blank=True, )
     title_tag = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(blank=True, null=True)
-    #body = models.TextField()
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default='uncategorized')
     snippet = models.CharField(max_length=255)
@@ -32,5 +31,4 @@ class Post(models.Model):
         return self.title + ' | ' + str(self.author)
 
     def get_absolute_url(self):
-        #return reverse('article-detail', args=(str(self.id)))
         return reverse('home')
